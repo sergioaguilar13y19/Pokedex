@@ -7,7 +7,7 @@ import Acerca from "../screens/Acerca";
 //icons
 import { AntDesign } from "@expo/vector-icons";
 
-const SCREEN_OPTIONS = { tabBarShowLabel: false };
+const SCREEN_OPTIONS = { tabBarShowLabel: false, headerShown: false };
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {

@@ -1,5 +1,5 @@
+//import Navigation
 import Navigator from "./src/navigation/index";
 
-export default function App() {
-  return <Navigator />;
-}
+const App = () => <Navigator />;
+export default App;

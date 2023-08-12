@@ -1,9 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { SafeAreaView, Text } from 'react-native'
 
 const Favorites = () => {
   return (
-    <Text>Favorites</Text>
+    <SafeAreaView>
+      <Text>Favorites</Text>
+    </SafeAreaView>
   )
 }
 

@@ -1,9 +1,13 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { SafeAreaView, Text } from 'react-native'
+//import component Card
+import Card from '../components/card/Card'
 
 const Home = () => {
   return (
-   <Text>Home</Text>
+   <SafeAreaView>
+    <Card />
+   </SafeAreaView>
   )
 }
 
