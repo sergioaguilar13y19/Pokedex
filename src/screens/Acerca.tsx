@@ -10,4 +10,5 @@ const Acerca = () => {
   )
 }
 
+
 export default Acerca

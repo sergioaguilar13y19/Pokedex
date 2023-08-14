@@ -1,6 +1,7 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, RefreshControl} from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import { SafeAreaView } from 'react-native-safe-area-context'
 //import component Card
 import Card from "../components/card/Card";
 //import Query
@@ -9,7 +10,6 @@ import { useInfiniteQuery } from "react-query";
 const URI_POKEMON = "https://pokeapi.co/api/v2/pokemon";
 
 const Home = () => {
-
   const handleNewPage = (pageParam: number) => {
     return pageParam === 1 ? URI_POKEMON : pageParam;
   };
@@ -17,13 +17,12 @@ const Home = () => {
     const response = await fetch(`${handleNewPage(pageParam)}`);
     return response.json();
   };
-  const { data, isLoading, error, fetchNextPage, hasNextPage } =
+  const { data, isLoading, isFetching, error, fetchNextPage, hasNextPage, refetch } =
     useInfiniteQuery(["getAllPokemon"], getAllPokemon, {
       getNextPageParam: (lastPage) => {
         return lastPage.next ? lastPage.next : false;
       },
     });
-
   const loadMorePokemon = () => {
     console.log(hasNextPage);
     if (hasNextPage) {
@@ -32,7 +31,6 @@ const Home = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Pokedex</Text>
       <View style={styles.renderContainer}>
         <FlashList
           data={data?.pages.map((pages) => pages.results).flat()}
@@ -41,6 +39,9 @@ const Home = () => {
           numColumns={2}
           onEndReached={loadMorePokemon}
           onEndReachedThreshold={0.3}
+          refreshControl={<RefreshControl refreshing={isFetching || isLoading}/>}
+          refreshing={isLoading || isFetching}
+          onRefresh={refetch}
         />
       </View>
     </SafeAreaView>
@@ -49,13 +50,12 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "space-around",
-    alignItems: "flex-start",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   renderContainer: {
     width: "100%",
-    height: "95%",
+    height: "100%",
   },
 });
 export default Home;
